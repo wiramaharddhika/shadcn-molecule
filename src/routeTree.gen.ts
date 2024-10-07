@@ -17,6 +17,7 @@ import { Route as rootRoute } from './routes/__root'
 // Create Virtual Routes
 
 const InputsLazyImport = createFileRoute('/inputs')()
+const FiltersLazyImport = createFileRoute('/filters')()
 const IndexLazyImport = createFileRoute('/')()
 
 // Create/Update Routes
@@ -25,6 +26,11 @@ const InputsLazyRoute = InputsLazyImport.update({
   path: '/inputs',
   getParentRoute: () => rootRoute,
 } as any).lazy(() => import('./routes/inputs.lazy').then((d) => d.Route))
+
+const FiltersLazyRoute = FiltersLazyImport.update({
+  path: '/filters',
+  getParentRoute: () => rootRoute,
+} as any).lazy(() => import('./routes/filters.lazy').then((d) => d.Route))
 
 const IndexLazyRoute = IndexLazyImport.update({
   path: '/',
@@ -42,6 +48,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof IndexLazyImport
       parentRoute: typeof rootRoute
     }
+    '/filters': {
+      id: '/filters'
+      path: '/filters'
+      fullPath: '/filters'
+      preLoaderRoute: typeof FiltersLazyImport
+      parentRoute: typeof rootRoute
+    }
     '/inputs': {
       id: '/inputs'
       path: '/inputs'
@@ -56,36 +69,41 @@ declare module '@tanstack/react-router' {
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexLazyRoute
+  '/filters': typeof FiltersLazyRoute
   '/inputs': typeof InputsLazyRoute
 }
 
 export interface FileRoutesByTo {
   '/': typeof IndexLazyRoute
+  '/filters': typeof FiltersLazyRoute
   '/inputs': typeof InputsLazyRoute
 }
 
 export interface FileRoutesById {
   __root__: typeof rootRoute
   '/': typeof IndexLazyRoute
+  '/filters': typeof FiltersLazyRoute
   '/inputs': typeof InputsLazyRoute
 }
 
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/' | '/inputs'
+  fullPaths: '/' | '/filters' | '/inputs'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/inputs'
-  id: '__root__' | '/' | '/inputs'
+  to: '/' | '/filters' | '/inputs'
+  id: '__root__' | '/' | '/filters' | '/inputs'
   fileRoutesById: FileRoutesById
 }
 
 export interface RootRouteChildren {
   IndexLazyRoute: typeof IndexLazyRoute
+  FiltersLazyRoute: typeof FiltersLazyRoute
   InputsLazyRoute: typeof InputsLazyRoute
 }
 
 const rootRouteChildren: RootRouteChildren = {
   IndexLazyRoute: IndexLazyRoute,
+  FiltersLazyRoute: FiltersLazyRoute,
   InputsLazyRoute: InputsLazyRoute,
 }
 
@@ -102,11 +120,15 @@ export const routeTree = rootRoute
       "filePath": "__root.tsx",
       "children": [
         "/",
+        "/filters",
         "/inputs"
       ]
     },
     "/": {
       "filePath": "index.lazy.tsx"
+    },
+    "/filters": {
+      "filePath": "filters.lazy.tsx"
     },
     "/inputs": {
       "filePath": "inputs.lazy.tsx"
