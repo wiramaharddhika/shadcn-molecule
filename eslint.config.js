@@ -3,6 +3,7 @@ import globals from 'globals';
 import reactHooks from 'eslint-plugin-react-hooks';
 import reactRefresh from 'eslint-plugin-react-refresh';
 import simpleImportSort from 'eslint-plugin-simple-import-sort';
+import react from 'eslint-plugin-react';
 import tseslint from 'typescript-eslint';
 
 export default tseslint.config(
@@ -15,6 +16,7 @@ export default tseslint.config(
       globals: globals.browser,
     },
     plugins: {
+      'react': react,
       'react-hooks': reactHooks,
       'react-refresh': reactRefresh,
       'simple-import-sort': simpleImportSort,
@@ -32,6 +34,11 @@ export default tseslint.config(
       semi: ['error', 'always'],
       'comma-dangle': ['error', 'always-multiline'],
       'quotes': ['error', 'single'],
+      "indent": ["error", 2],
+      "object-curly-spacing": ["error", "always"],
+      "array-bracket-spacing": ["error", "never"],
+      "react/jsx-indent": ["error", 2],      
+      "react/jsx-indent-props": ["error", 2]
     },
   },
 );
