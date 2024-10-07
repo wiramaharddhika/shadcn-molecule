@@ -1,6 +1,6 @@
 import { ScrollArea } from '@radix-ui/react-scroll-area';
 import { Tooltip, TooltipProvider, TooltipTrigger } from '@radix-ui/react-tooltip';
-import { Link } from '@tanstack/react-router';
+import { Link, useLocation } from '@tanstack/react-router';
 import { Ellipsis, LogOut } from 'lucide-react';
 import { cn, match } from '@/lib/utils';
 import { Button } from '../ui/button';
@@ -10,14 +10,15 @@ import { getMenuList } from './sidebar.util';
 import { SidebarHeader } from './sidebar-header';
 import { SidebarToggle } from './sidebar-toggle';
 
-const menuList = getMenuList('test');
-
 interface SidebarProps {
   isOpen: boolean
   onOpenChange: (isOpen: boolean) => void
 }
 
 export function Sidebar({ isOpen, onOpenChange }: SidebarProps) {
+  const { pathname } = useLocation();
+  const menuList = getMenuList(pathname);
+
   return (
     <aside
       className={cn(
