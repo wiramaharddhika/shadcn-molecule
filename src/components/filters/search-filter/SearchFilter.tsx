@@ -42,7 +42,7 @@ export function SearchFilter({
       {!!label && <div className="text-sm mb-1 font-semibold">{label}</div>}
       <div className="relative">
         <Input
-          className="w-full pr-20"
+          className="w-full pr-20 bg-white"
           placeholder={placeholder}
           value={searchInput}
           onChange={onSearchInputChange}
