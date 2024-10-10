@@ -1,4 +1,4 @@
-import { DatePicker, DateRangePicker } from '@/components/inputs';
+import { DatePicker, DateRangePicker, Select } from '@/components/inputs';
 
 export function Inputs() {
   return (
@@ -9,6 +9,9 @@ export function Inputs() {
       </div>
       <div className='w-64 flex flex-col gap-2'>
         <DateRangePicker onChange={() => {}} clearable />
+      </div>
+      <div className='w-64 flex flex-col gap-2'>
+        <Select options={[]} onChange={() => {}} />
       </div>
     </div>
   );
